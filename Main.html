@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
+
+    <base target="_top">
+    <style>
+      @media (max-width: 2560px) {
+        html {
+          font-size: 14px;
+        }
+      }
+
+      @media (max-width: 1920px) {
+        html {
+          font-size: 8px;
+        }
+      }
+  
+      html{
+        background-color: #e8f3ff;
+      }
+
+      .parentContainer{
+        position: relative;
+      
+        border-radius: 25px;
+        background-color: #c2d9f2;
+        height: 95vh;
+        width: 100%;
+      }
+      .gridContainer{
+        display: grid;
+        grid-template-rows: repeat(15, 1fr);
+        grid-template-columns: repeat(7,1fr);
+        width:100%;
+        height:100%;
+      }
+
+      .attendanceToolNameContainer{
+        grid-row: 1 / span 1;
+        grid-column: 3 / span 3;
+      }
+      .attendanceToolName{
+        position: relative;
+        top: 20%;
+        left: 22.5%;
+
+        height:100%;
+        width:55%;
+        font-size: 3rem;
+        font-family: "Titillium Web", serif;
+
+        border-radius: 25px;
+        background-color:  #e8f3ff;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+
+      .teacherNameContainer{
+        grid-column: 2 / span 2;
+        grid-row: 2 / span 2;
+      }
+      .teacherNameInput{
+        position: relative;
+        top: 24%;
+
+        background-color: #edf2f7;
+        font-size: 2.2rem;
+        border-radius: 25px;
+        height:40%;
+        width:100%;
+
+        text-indent: 5%;
+      }
+
+      .dateInputContainer{
+        grid-column: 5 / span 2;
+        grid-row: 2 / span 2;
+      }
+      .dateInput{
+        border-radius: 25px;
+        position: relative;
+        top: 24%;
+
+        background-color: #edf2f7;
+        font-size: 2.2rem;
+        height:40%;
+        width:100%;
+
+        text-indent: 5%;
+      }
+
+
+      //Absense cell inputs;
+      .absenseGridContainer{
+        width: 100%;
+        height: 100%;
+
+        grid-row: 4 / span 11;
+        grid-column: 1 / span 7;
+      }
+      .absenseGrid{
+        position: relative;
+        width: 90%;
+        height: 85%;
+        top: -3%;
+        left: 2.5%;
+
+        padding-left: 2.5%;
+        padding-right: 2.5%;
+        padding-top:2.5%;
+        padding-bottom:2.5%;
+
+        border-radius: 25px;
+
+        display:grid;
+        grid-template-columns: repeat(15,1fr);
+        grid-template-rows: repeat(7, 1fr);
+        gap: 10px;
+
+        background-color: #e8f3ff;
+      }
+      .submitButtonContainer{
+        grid-row: 15 / span 1;
+        grid-column: 3 / span 3;   
+      }
+      .submitButton{
+        height:100%;
+        width:100%;
+        font-size: 3rem;
+        position: relative;
+        bottom: 15%;
+      }
+
+      .innerContainerStyle{
+        width: 80%;
+        height: 60%;
+        position: relative;
+        left: 10%;
+      }
+
+      .timeInput{
+        background-color: #f2f6fa;
+        border-radius: 25px;
+        font-size: 1.4rem;
+        text-indent: 3%;
+      }
+      .timeInputContainer{
+        background-color: #e8f3ff;
+        grid-column: 1 / span 1;
+        min-height: 100%;
+        min-width: 100%;
+      }
+
+
+      .classTypeSelector{
+        background-color: #f2f6fa;
+        border-radius: 25px;
+        height: 63% !important;
+        font-size: 1.6rem;
+        display: flex;
+        text-indent: 2.5%;
+      }
+      .classTypeSelectorContainer{
+        background-color: #e8f3ff;
+        grid-column: 2 / span 1;
+        min-height: 100%;
+        min-width: 100%;
+      }
+      
+      .absentStudentContainer{
+        grid-column: 3 / span 2;
+      }
+      .absentStudentInput{
+        border-radius: 25px 0 0 25px;
+
+        position:relative;
+        left: 0%;
+        background-color: #f2f6fa;
+        height: 70% !important;
+        width: 75% !important;
+        font-size: 1.5rem;
+        text-indent: 5%;
+        border: 1px solid gray;
+      }
+      .addAbsentStudentButton{
+        position: relative;
+        width: 16%;
+        height: 76%;
+        top: -1% !important;
+        right: 0%;
+        border-radius: 0 25px 25px 0;
+        font-size: 1.4rem;
+
+        border:  1px solid gray;
+      }
+      .addAbsentStudentButton:active{
+        background-color: #adadac !important;
+      }
+
+
+
+
+      .absentStudentsListContainer{
+        background-color: #f2f6fa;
+        grid-column: 5 / span 7;
+        min-height: 100%;
+        min-width: 100%;
+        max-height: 100%;
+        max-width: 100%;
+        border-radius: 25px;
+
+        border: 2px solid #aaa;
+        border-top-color: #999; 
+        border-left-color: #999;
+        border-right-color: #ddd;
+        border-bottom-color: #ddd;
+        overflow-y: auto;
+      }
+      .absentStudentsList{
+        position: relative;
+        width: 96%;
+        height: 90%;
+
+        left: 2%;
+        top: 5%;
+
+        font-size: 1.5rem;
+        display:grid; 
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(1, 50%);
+        place-items: center;
+        overflow-y: auto;
+      }
+      .absentStudentItemContainer{
+        min-height: 100%;
+        min-width: 100%;
+
+        display: grid;
+        place-items: center;
+        box-sizing: border-box;
+        grid-template-columns: repeat(7, 1fr);
+
+        overflow-x: hidden;
+        overflow-y: hidden;
+      }
+      .absentStudentItem{
+        grid-column: 1 / span 6;
+
+        position: relative;
+        background-color: #d2e5fa;
+        top: 10%;
+        left: 5%;
+        min-height: 85%;
+        min-width: 100%;
+        max-height: 85%;
+        max-width: 100%;
+
+        border-radius: 25px 0 0 25px;
+        font-size: 1.9rem;
+        text-indent: 5%;
+
+        overflow-x: hidden;
+        overflow-y: hidden;
+        white-space: nowrap;
+        text-overflow: clip;
+      }
+      .absentStudentItemRemoveButton{
+        grid-column: 7 / span 1;
+
+        position:relative;
+        top: 9%;
+        left: 0%;
+
+        height: 66%;
+        width: 80%;
+        max-height: 66%;
+        max-width: 80%;
+        background-color: #f7928d;
+        right: 0%;
+      
+        border-radius: 0 25px 25px 0;
+        font-size: 1rem;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .notesFieldContainer{
+        grid-column: 12 / span 4;
+        background-color: #d3dbe3;
+        border-radius: 25px;
+        display: flex;
+        font-size: 2rem;
+        overflow: auto !important;
+        padding: 5%;
+        resize: none;
+      }
+      
+
+      /*Error message styles*/
+
+      .errorMessageFreezeCover{
+        position: absolute;
+        top: 0%;
+
+        background-color: rgba(255, 255, 255, 0);
+        min-height: 100%;
+        min-width: 100%;
+        z-index: 4;
+      }
+      .errorMessageWindow{
+        position: absolute;
+        z-index: 5;
+        top: 30%;
+        left: 30%;
+
+        width: 40%;
+        height: 40%;
+        background-color: #4c729c;
+
+        border-radius: 25px;
+        border: 2px solid #254363;
+      }
+
+      .errorMessageText{
+        position: relative;
+        width: 98%;
+        height: 70%;
+        max-width: 98%;
+        max-height: 70%;
+
+        left: 1%;
+        top: 2.5%;
+
+        padding: 2.5%;
+
+        font-size: 2rem;
+        font-family: "Titillium Web", serif;
+
+        border-radius: 25px;
+        box-sizing: border-box;
+
+        background-color: #d9eafc;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .errorMessageCloseButton{
+        position: relative;
+        width: 60%;
+        height: 20%;
+        left: 20%;
+        top: 7.5%;
+        background-color: #e3eefa;
+        font-size: 2rem;
+      }
+
+
+      .guideButton{
+        position: absolute;
+        left: 23%;
+        bottom: 1%;
+        width: 3.5%;
+        height: 6.6%;
+        
+        font-size: 4rem;
+      }
+
+      .storageButton{
+        position: absolute;
+        left: 73.6%;
+        bottom: 1%;
+        width: 10%;
+        height: 6.6%;
+        
+        font-size: 3rem;
+      }
+
+
+      .loadingAnimationContainer{
+        position: absolute;
+        left: 30%;
+        top:40%;
+        width: 40%;
+        height: 20%;
+        background-color: rgb(0,0,0,0);
+
+        display: grid;
+        place-items: center;
+      }
+
+      .loader {
+        width: 200px;
+        aspect-ratio: 1;
+        border-radius: 50%;
+        border: 32px solid #514b82;
+        animation:
+          l20-1 0.8s infinite linear alternate,
+          l20-2 1.6s infinite linear,
+          fadeInOut 3s infinite; /* Simple fade in and out */
+      }
+      @keyframes l20-1{
+        0%    {clip-path: polygon(50% 50%,0       0,  50%   0%,  50%    0%, 50%    0%, 50%    0%, 50%    0% )}
+        12.5% {clip-path: polygon(50% 50%,0       0,  50%   0%,  100%   0%, 100%   0%, 100%   0%, 100%   0% )}
+        25%   {clip-path: polygon(50% 50%,0       0,  50%   0%,  100%   0%, 100% 100%, 100% 100%, 100% 100% )}
+        50%   {clip-path: polygon(50% 50%,0       0,  50%   0%,  100%   0%, 100% 100%, 50%  100%, 0%   100% )}
+        62.5% {clip-path: polygon(50% 50%,100%    0, 100%   0%,  100%   0%, 100% 100%, 50%  100%, 0%   100% )}
+        75%   {clip-path: polygon(50% 50%,100% 100%, 100% 100%,  100% 100%, 100% 100%, 50%  100%, 0%   100% )}
+        100%  {clip-path: polygon(50% 50%,50%  100%,  50% 100%,   50% 100%,  50% 100%, 50%  100%, 0%   100% )}
+      }
+      @keyframes l20-2{ 
+        0%    {transform:scaleY(1)  rotate(0deg)}
+        49.99%{transform:scaleY(1)  rotate(135deg)}
+        50%   {transform:scaleY(-1) rotate(0deg)}
+        100%  {transform:scaleY(-1) rotate(-135deg)}
+      }
+      @keyframes fadeInOut {
+        0%   {opacity: 0;}   /* Start fully transparent */
+        50%  {opacity: 1;}   /* Fully visible at the midpoint */
+        100% {opacity: 0;}   /* Fade back to transparent */
+      }
+
+    </style>
+  </head>
+  <body>
+    <div class="parentContainer" id = "parentContainer">
+      <div class = "gridContainer">
+        
+        <div class = "attendanceToolNameContainer">
+          <div class = "attendanceToolName">ATTENDANCE</div>
+        </div>
+
+        <div class="teacherNameContainer">
+          <input class = "teacherNameInput" id = "teacher_name_field" type="text" placeholder="Input your name">
+        </div>
+        
+        <div class="dateInputContainer">
+          <input class = "dateInput" id = "dateInputID" type = "date">
+        </div>
+
+        <div class="absenseGridContainer" id = "absenseGridContainer">
+          <div class = "absenseGrid" id = "absenseGridID"></div>
+        </div>
+
+        <div class="submitButtonContainer">
+          <button class="submitButton" id = "submitButton">💾</button>
+        </div>
+
+        <button class="guideButton" onclick="window.open('https://docs.google.com/document/d/1pc0Aad7vxjt8QmNjJFlLU9-90jYLIfNdAtnait5FDj4/edit?tab=t.0', '_blank')">?</button>
+        <button class="storageButton" onclick="window.open('https://docs.google.com/spreadsheets/d/10aGDGhzuPq9r2H1Uixbp_vWMb6To-U6d_ax8LyRU_2s/edit?gid=331421406#gid=331421406', '_blank')">STORAGE</button>
+    </div>
+
+    <script>
+      const classTypeOptions = ["PC", "BP", "AUS", "NZ", "ENG", "BG", "BC", "BR", "BI", "BP", "IG", "IC", "IR", "II", "IMI", "IELTS", "AG", "AC", "AR", "AI", "AMI", "API", "G"];
+      const errorObject = {
+        "student_overflow": "The maximum number of students is 12. Please, contact QM if you need to add more.",
+        "invalid_teacherName": "The teacher name is invalid. Please, avoid using symbols in the submission.",
+        "invalid_studentName": "The student name is invalid. Please, avoid using symbols in the submission and Japanese spaces. Write all the notes in the note section on the right side.",
+        "invalid_studentName_missing_space": "A space is missing. Please, ensure there is one space in the student's name.",
+        "repeat_student": "You have input the same student name again.",
+        "empty_student_name": "The student name is empty.",
+        "no_teacher_name": "Please, input your name before submitting the form.",
+        "no_date": "Please, input the date before submitting the form.",
+        "incorrect_timeslot_value": "Time slot value is incorrect. Please, make sure it is in -HH00- format.",
+        "no_timeslot_input": "You have not input a single timeslot. Make sure to choose at least one.",
+        "timeslot_repeat_input": "You have input the same timeslot more than once. Please, set the correct timeslot.",
+        "submission_success": "Data has been submitted successfully.",
+        "submission_failure": "Data submission has failed. Contact the administrator for the details",
+      };
+
+      const possibleTimeslotsNum = 12;
+      const parentContainer = document.getElementById("parentContainer");
+      const absentStudentsObject = {};
+
+      const timeslotsArr = new Array(7);
+
+      function checkInputText(inputText, inputType, studentsToSubmitArray) {
+        switch (inputType) {
+
+          case "teacherName":
+            const regexTeacher = /[^a-zA-Z ]/;
+            const checkResultTeacher = regexTeacher.test(inputText);
+
+            if (checkResultTeacher) {
+              displayError("invalid_teacherName");
+              return false;
+            }
+
+            break;
+
+          case "studentName":
+            const regexStudent = /[^a-zA-Z ]/;
+            const checkResultStudent = regexStudent.test(inputText);
+
+            if (checkResultStudent) {
+              displayError("invalid_studentName");
+              return false;
+            }
+
+            if (inputText == "") {
+              displayError("empty_student_name");
+              return false;              
+            }
+
+            if (!inputText.includes(" ")){
+              displayError("invalid_studentName_missing_space");
+              return false;
+            };
+
+            if (studentsToSubmitArray.includes(inputText)) {
+              displayError("repeat_student");
+              return false;
+            }
+
+            break;
+
+          default:
+        }
+
+        return true;
+      }
+
+      function displayError (errorCode) {
+        const errorText = errorObject[errorCode];
+
+        const displayWindow = document.createElement("div");
+        displayWindow.classList.add("errorMessageWindow");
+
+        const displayWindowText = document.createElement("div");
+        displayWindowText.classList.add("errorMessageText");
+        displayWindowText.textContent = errorText;
+
+        displayWindow.append(displayWindowText);
+        parentContainer.append(displayWindow);
+
+        const errorMessageCloseButton = document.createElement("button");
+        errorMessageCloseButton.classList.add("errorMessageCloseButton");
+        errorMessageCloseButton.textContent = "CLOSE";
+        displayWindow.append(errorMessageCloseButton);
+
+        const errorMessageFreezeCover = document.createElement("div");
+        errorMessageFreezeCover.classList.add("errorMessageFreezeCover");
+        parentContainer.append(errorMessageFreezeCover);
+
+        errorMessageCloseButton.addEventListener("click", () => {
+          displayWindow.remove();
+          errorMessageFreezeCover.remove();
+        });
+      }
+
+      function generatePageElements() {
+        const absenseGrid = document.getElementById("absenseGridID");
+        const absenseRows = 7;
+
+        const absentStudentItemCounterObj = {};
+        const teacherNameInput = document.getElementById("teacher_name_field");
+
+        teacherNameInput.addEventListener("change", () => {
+          const currentInputValue = teacherNameInput.value;
+          const templateArray = [];
+          checkInputText(currentInputValue, "teacherName", templateArray);
+        });
+
+        const dateInput = document.getElementById("dateInputID");
+        const currentDate = new Date ();
+        const curYear = currentDate.getFullYear();
+        const curMonth = String(currentDate.getMonth() + 1).padStart(2, "0");
+        const curDate = String(currentDate.getDate()).padStart(2, "0");
+
+        const defaultDateSet = `${curYear}-${curMonth}-${curDate}`;
+        dateInput.value = defaultDateSet;
+
+        function addNewClassSlot(i){
+          
+          const newTimeInput = document.createElement("input");
+          newTimeInput.classList.add("timeInput", "innerContainerStyle");
+          newTimeInput.id = `${i}_timeInput`;
+          newTimeInput.type = "number";
+          newTimeInput.min = "1000";
+          newTimeInput.max = "2100";
+          newTimeInput.step = "100";
+          newTimeInput.placeholder = "1000";
+
+          newTimeInput.addEventListener("change", () => {
+            timeslotsArr[i] = newTimeInput.value;
+          });
+
+          let studentsToSubmitArray = [];
+
+          const newTimeInputContainer = document.createElement("div");
+          newTimeInputContainer.classList.add("timeInputContainer");
+          newTimeInputContainer.append(newTimeInput);
+
+          const newClassTypeSelector = document.createElement("select");
+          newClassTypeSelector.id = `${i}_classType`;
+          newClassTypeSelector.classList.add("classTypeSelector", "innerContainerStyle");
+
+          for (let a = 0; a < classTypeOptions.length; a++) {
+            const newClassTypeOption = document.createElement("option");
+            newClassTypeOption.textContent = classTypeOptions[a];
+            newClassTypeOption.value = classTypeOptions[a];
+
+            newClassTypeSelector.append(newClassTypeOption);
+          }
+
+          const newClassTypeContainer = document.createElement("div");
+          newClassTypeContainer.classList.add("classTypeSelectorContainer");
+          newClassTypeContainer.append(newClassTypeSelector);
+
+          const newStudentInputContainer = document.createElement("div");
+
+          newStudentInputContainer.classList.add("absentStudentContainer");
+          const newStudentInput = document.createElement("input");
+          newStudentInput.classList.add("absentStudentInput");
+          newStudentInput.id = `${i}_studentInput`;
+          newStudentInput.placeholder = "Input absent student";
+
+          const addAbsentStudentButton = document.createElement("button");
+          addAbsentStudentButton.classList.add("addAbsentStudentButton");
+          addAbsentStudentButton.textContent = "+";
+
+          newStudentInputContainer.append(newStudentInput);
+          newStudentInputContainer.append(addAbsentStudentButton);
+
+          const newStudentListContainer = document.createElement("div");
+          newStudentListContainer.classList.add("absentStudentsListContainer");
+          const newStudentList = document.createElement("div");
+          newStudentList.classList.add("absentStudentsList");
+          newStudentList.id = `${i}_studentList`;
+
+          if (i == 0) {
+            newStudentList.textContent = "Leave empty if no one is absent.";
+          }
+          
+          absentStudentItemCounterObj[`${i}_studentList`] = 0;
+          newStudentListContainer.append(newStudentList);
+
+          const newNoteField = document.createElement("textarea");
+          newNoteField.classList.add("notesFieldContainer");
+          newNoteField.id = `${i}_notefield`;
+          newNoteField.placeholder = "Write your notes here.";
+
+          //Adding event listener to add new students to the list.
+          addAbsentStudentButton.addEventListener("click", () => {
+            let currentInputValue = newStudentInput.value;
+            currentInputValue = currentInputValue.toLowerCase();
+
+            const result = checkInputText(currentInputValue, "studentName", studentsToSubmitArray);
+
+            if (result) {
+              newStudentList.childNodes.forEach(node => {
+                  if (node.nodeType === Node.TEXT_NODE) {
+                      node.remove();
+                  }
+              });
+
+              let inputStudentValue = newStudentInput.value;
+              inputStudentValue = inputStudentValue.trim().toLowerCase();
+              inputStudentValueSplit = inputStudentValue.split(" ");
+              let inputStudentValue1 = inputStudentValueSplit[0];
+              let inputStudentValue2 = inputStudentValueSplit[1];
+
+              inputStudentValue1 = inputStudentValue1.charAt(0).toUpperCase() + inputStudentValue1.slice(1);
+              inputStudentValue2 = inputStudentValue2.charAt(0).toUpperCase() + inputStudentValue2.slice(1);
+
+              inputStudentValue = ` ${inputStudentValue1} ${inputStudentValue2}`;
+
+              studentsToSubmitArray.push(inputStudentValue);
+
+              absentStudentsObject[i] = studentsToSubmitArray;
+
+              const newStudentItemContainer = document.createElement("div");
+              newStudentItemContainer.classList.add("absentStudentItemContainer");
+
+              const newStudentItem = document.createElement("div");
+              newStudentItem.classList.add("absentStudentItem");
+              newStudentItem.textContent = inputStudentValue;
+              newStudentItemContainer.append(newStudentItem);
+
+              const removeButton = document.createElement("button");
+              removeButton.classList.add("absentStudentItemRemoveButton");
+              removeButton.textContent = "X";
+
+              removeButton.addEventListener("click", () => {
+                studentsToSubmitArray = studentsToSubmitArray.filter(input => input !== inputStudentValue);
+
+                absentStudentsObject[i] = studentsToSubmitArray;
+                newStudentItemContainer.remove();
+                console.log(studentsToSubmitArray);
+              });
+
+              newStudentItemContainer.append(removeButton);
+
+              const currentStudentNumber = absentStudentItemCounterObj[`${i}_studentList`];
+
+              const curRowNumber = Math.ceil(currentStudentNumber+1/3);
+
+              newStudentList.append(newStudentItemContainer);
+              newStudentList.style.gridTemplateRows = `repeat(${curRowNumber}, 50%)`;
+              absentStudentItemCounterObj[`${i}_studentList`] = currentStudentNumber + 1;
+
+            }
+          });
+
+
+
+          
+          absenseGrid.append(newTimeInputContainer);
+          absenseGrid.append(newClassTypeContainer);
+          absenseGrid.append(newStudentInputContainer);
+          absenseGrid.append(newStudentListContainer);
+          absenseGrid.append(newNoteField);
+        };
+
+        for (let i = 0; i < absenseRows; i++) {
+          addNewClassSlot(i);
+        }
+      }
+
+      generatePageElements();
+
+      function gatherSendData() {
+
+        function gatherData() {
+          const dataObject = {};
+
+          const item_number = 7;
+          let timeslotInputFlag = false;
+
+          const teacherNameField = document.getElementById("teacher_name_field");
+          let teacherNameValue = teacherNameField.value;
+          teacherNameValue = teacherNameValue.toLowerCase();
+          teacherNameValue = teacherNameValue.charAt(0).toUpperCase() + teacherNameValue.slice(1);
+
+          const dateInput = document.getElementById("dateInputID");
+          const dateInputValue = dateInput.value;
+
+          for (let i = 0; i < item_number; i++) {
+            const timeslot = document.getElementById(`${i}_timeInput`);
+            const classType = document.getElementById(`${i}_classType`);
+            const noteField = document.getElementById(`${i}_notefield`);
+
+            const timeslotValue = timeslot.value;
+            const classTypeValue = classType.value;
+            const noteFieldValue = noteField.value;
+            const currentStudentList = absentStudentsObject[i];
+
+            const timeslotToCheck = timeslotValue;
+            const repeatedTimeslotCount = timeslotsArr.filter(item => item === timeslotToCheck).length;
+
+            if (timeslotValue != "") {
+              timeslotInputFlag = true;
+            }
+
+            if (teacherNameValue == "") {
+              displayError("no_teacher_name");
+              return;
+            } else if (dateInputValue == "") {
+              displayError("no_date");
+              return;
+            } else if (timeslotValue%100 != 0) {
+              displayError("incorrect_timeslot_value");
+              return;
+            } else if (timeslotInputFlag == false && i == 6) {
+              displayError("no_timeslot_input");
+              return; 
+            } else if (repeatedTimeslotCount > 1) {
+              displayError("timeslot_repeat_input");
+              return;
+            }
+
+            if (timeslotValue != "") {
+              const timeslotValueString = timeslotValue.toString();
+
+              dataObject[timeslotValueString] = {};
+              dataObject[timeslotValueString]["classType"] = classTypeValue;
+              dataObject[timeslotValueString]["absentStudentsList"] = currentStudentList;
+              dataObject[timeslotValueString]["noteField"] = noteFieldValue;
+
+              dataObject[timeslotValueString]["teacherName"] = teacherNameValue;
+              dataObject[timeslotValueString]["date"] = dateInputValue.toString();
+              dataObject[timeslotValueString]["header"] = 1;
+            } 
+          }
+
+          return dataObject;
+        }
+
+        function sendData(retrievedDataObj) {
+          const loadingContainer = document.createElement("div");
+          loadingContainer.classList.add("loadingAnimationContainer");
+
+          const loadingAnimation = document.createElement("div");
+          loadingAnimation.classList.add("loader");
+          
+          loadingContainer.append(loadingAnimation);
+          parentContainer.append(loadingContainer);
+
+          google.script.run.withSuccessHandler(response =>  {
+            loadingContainer.remove();
+            setTimeout(() => {
+              displayError("submission_success");
+            }, 300);
+          }).withFailureHandler(error => {
+            loadingContainer.remove();
+            setTimeout(() => {
+              displayError("submission_failure");
+            }, 300);
+          }).confirmRetrievedData(retrievedDataObj);
+          
+        }
+
+        const retrievedDataObj = gatherData();
+        sendData(retrievedDataObj);
+      }
+
+      const submitButton = document.getElementById("submitButton");
+
+      submitButton.addEventListener("click", () => {
+        gatherSendData();
+      });
+
+    </script>
+  </body>
+</html>
